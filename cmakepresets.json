@@ -1,0 +1,50 @@
+{
+    "version": 4,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 22,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "ninja-multi",
+            "displayName": "Ninja Multi-Config",
+            "description": "Default build using Ninja Multi-Config generator",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build/multi",
+            "cacheVariables":{
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchain.cmake"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Development",
+            "configurePreset": "ninja-multi",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "Release",
+            "configurePreset": "ninja-multi",
+            "configuration": "Release"
+        },
+        {
+            "name": "Debug",
+            "configurePreset": "ninja-multi",
+            "configuration": "Debug"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "default",
+            "configurePreset": "default",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        }
+    ]
+}

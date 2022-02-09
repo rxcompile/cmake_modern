@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.22)
+enable_testing()
+
+project(modern-cmake CXX)
+add_executable(program src/main.cxx)
+
+add_library(cxx_build_options INTERFACE)
+target_compile_features(cxx_build_options INTERFACE cxx_std_17)
+target_precompile_headers(cxx_build_options INTERFACE
+    <unordered_map>
+    <cstdio>
+)
+
+target_link_libraries(program PRIVATE cxx_build_options)
