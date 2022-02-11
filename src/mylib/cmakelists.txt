@@ -1,0 +1,3 @@
+
+add_library(mylib)
+configure_target(mylib)

@@ -2,13 +2,31 @@ cmake_minimum_required(VERSION 3.22)
 enable_testing()
 
 project(modern-cmake CXX)
-add_executable(program src/main.cxx)
 
+# setup compilation parameters
 add_library(cxx_build_options INTERFACE)
 target_compile_features(cxx_build_options INTERFACE cxx_std_17)
 target_precompile_headers(cxx_build_options INTERFACE
-    <unordered_map>
     <cstdio>
 )
 
-target_link_libraries(program PRIVATE cxx_build_options)
+function(configure_target target_name)
+    # platform-independent sources
+    file(GLOB_RECURSE COMMON_SRC CONFIGURE_DEPENDS common/*.cxx)
+    # platform sources
+    file(GLOB_RECURSE WINDOWS_SRC CONFIGURE_DEPENDS platform_windows/*.cxx)
+    file(GLOB_RECURSE DARWIN_SRC CONFIGURE_DEPENDS platform_darwin/*.cxx)
+
+    # setup target
+    target_sources(${target_name} PRIVATE
+        ${COMMON_SRC}
+        $<$<BOOL:${WIN32}>:${WINDOWS_SRC}>
+        $<$<BOOL:${APPLE}>:${DARWIN_SRC}>
+    )
+    target_include_directories(${target_name} SYSTEM PUBLIC public)
+    install(TARGETS ${target_name})
+    install(DIRECTORY public/ DESTINATION include/ FILES_MATCHING PATTERN "*.hpp")
+endfunction()
+
+add_subdirectory(src/program)
+add_subdirectory(src/mylib)

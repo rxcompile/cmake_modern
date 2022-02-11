@@ -1,5 +1,5 @@
 {
-    "version": 4,
+    "version": 3,
     "cmakeMinimumRequired": {
         "major": 3,
         "minor": 22,
@@ -7,44 +7,41 @@
     },
     "configurePresets": [
         {
-            "name": "ninja-multi",
+            "name": "base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/out/${presetName}/build",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/${presetName}/install"
+            }
+        },
+        {
+            "name": "ninja",
+            "inherits": [
+                "base"
+            ],
             "displayName": "Ninja Multi-Config",
             "description": "Default build using Ninja Multi-Config generator",
-            "generator": "Ninja Multi-Config",
-            "binaryDir": "${sourceDir}/build/multi",
-            "cacheVariables":{
-                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchain.cmake"
-            }
+            "generator": "Ninja Multi-Config"
         }
     ],
     "buildPresets": [
         {
-            "name": "Development",
-            "configurePreset": "ninja-multi",
+            "name": "ninja-dev",
+            "displayName": "Development",
+            "configurePreset": "ninja",
             "configuration": "RelWithDebInfo"
         },
         {
-            "name": "Release",
-            "configurePreset": "ninja-multi",
+            "name": "ninja-rel",
+            "displayName": "Release",
+            "configurePreset": "ninja",
             "configuration": "Release"
         },
         {
-            "name": "Debug",
-            "configurePreset": "ninja-multi",
+            "name": "ninja-debug",
+            "displayName": "Debug",
+            "configurePreset": "ninja",
             "configuration": "Debug"
-        }
-    ],
-    "testPresets": [
-        {
-            "name": "default",
-            "configurePreset": "default",
-            "output": {
-                "outputOnFailure": true
-            },
-            "execution": {
-                "noTestsAction": "error",
-                "stopOnFailure": true
-            }
         }
     ]
 }

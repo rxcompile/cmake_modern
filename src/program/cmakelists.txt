@@ -1,0 +1,5 @@
+
+add_executable(program)
+configure_target(program)
+target_link_libraries(program PRIVATE cxx_build_options)
+target_link_libraries(program PRIVATE mylib)
