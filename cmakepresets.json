@@ -15,32 +15,32 @@
             }
         },
         {
-            "name": "ninja",
+            "name": "default",
             "inherits": [
                 "base"
             ],
-            "displayName": "Ninja Multi-Config",
+            "displayName": "Default Ninja Multi-Config",
             "description": "Default build using Ninja Multi-Config generator",
             "generator": "Ninja Multi-Config"
         }
     ],
     "buildPresets": [
         {
-            "name": "ninja-dev",
+            "name": "default-dev",
             "displayName": "Development",
-            "configurePreset": "ninja",
+            "configurePreset": "default",
             "configuration": "RelWithDebInfo"
         },
         {
-            "name": "ninja-rel",
+            "name": "default-rel",
             "displayName": "Release",
-            "configurePreset": "ninja",
+            "configurePreset": "default",
             "configuration": "Release"
         },
         {
-            "name": "ninja-debug",
+            "name": "default-debug",
             "displayName": "Debug",
-            "configurePreset": "ninja",
+            "configurePreset": "default",
             "configuration": "Debug"
         }
     ]
